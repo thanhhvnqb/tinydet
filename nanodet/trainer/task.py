@@ -103,7 +103,6 @@ class TrainingTask(LightningModule):
 
     def training_epoch_end(self, outputs: List[Any]) -> None:
         self.trainer.save_checkpoint(os.path.join(self.cfg.save_dir, "model_last.ckpt"))
-        self.lr_scheduler.step()
 
     def validation_step(self, batch, batch_idx):
         batch = self._preprocess_batch_input(batch)
@@ -222,13 +221,13 @@ class TrainingTask(LightningModule):
         schedule_cfg = copy.deepcopy(self.cfg.schedule.lr_schedule)
         name = schedule_cfg.pop("name")
         build_scheduler = getattr(torch.optim.lr_scheduler, name)
-        self.lr_scheduler = build_scheduler(optimizer=optimizer, **schedule_cfg)
-        # lr_scheduler = {'scheduler': self.lr_scheduler,
-        #                 'interval': 'epoch',
-        #                 'frequency': 1}
-        # return [optimizer], [lr_scheduler]
-
-        return optimizer
+        lr_scheduler = build_scheduler(optimizer=optimizer, **schedule_cfg)
+        return {
+            "optimizer": optimizer,
+            "lr_scheduler": {
+                "scheduler": lr_scheduler,
+            },
+        }
 
     def optimizer_step(
         self,
