@@ -1,0 +1,1511 @@
+Finish initialize NanoDet-Plus Head.
+NanoDetPlus(
+  input_shapes=[[1, 3, 320, 320]], output_shapes=[1, 2125, 112], nparams=3.371744, nflops=981.6704
+  (backbone): EffNetLite(
+    input_shapes=[[1, 3, 320, 320]], output_shapes=[[1, 240, 40, 40], [1, 672, 20, 20], [1, 320, 10, 10]], nparams=2.919392, nflops=742.5248
+    (stem): Sequential(
+      input_shapes=[[1, 3, 320, 320]], output_shapes=[1, 32, 160, 160], nparams=0.000864, nflops=22.1184
+      (0): Conv2d(
+        3, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False,
+        input_shapes=[[1, 3, 320, 320]], output_shapes=[1, 32, 160, 160], nparams=0.000864, nflops=22.1184
+      )
+      (1): BatchNorm2d(
+        32, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+        input_shapes=[[1, 32, 160, 160]], output_shapes=[1, 32, 160, 160], nparams=0.0, nflops=0.0
+      )
+      (2): ReLU6(
+        inplace=True,
+        input_shapes=[[1, 32, 160, 160]], output_shapes=[1, 32, 160, 160], nparams=0.0, nflops=0.0
+      )
+    )
+    (blocks): ModuleList(
+      (0): ModuleList(
+        (0): MBConvBlock(
+          input_shapes=[[1, 32, 160, 160], None, None], output_shapes=[[1, 16, 160, 160], [1, 32, 160, 160]], nparams=0.0008, nflops=20.48
+          (_depthwise_conv): Conv2d(
+            32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False,
+            input_shapes=[[1, 32, 160, 160]], output_shapes=[1, 32, 160, 160], nparams=0.000288, nflops=7.3728
+          )
+          (_bn1): BatchNorm2d(
+            32, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 32, 160, 160]], output_shapes=[1, 32, 160, 160], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            32, 16, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 32, 160, 160]], output_shapes=[1, 16, 160, 160], nparams=0.000512, nflops=13.1072
+          )
+          (_bn2): BatchNorm2d(
+            16, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 16, 160, 160]], output_shapes=[1, 16, 160, 160], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 32, 160, 160]], output_shapes=[1, 32, 160, 160], nparams=0.0, nflops=0.0
+          )
+        )
+      )
+      (1): ModuleList(
+        (0): MBConvBlock(
+          input_shapes=[[1, 16, 160, 160], None, None], output_shapes=[[1, 24, 80, 80], [1, 96, 160, 160]], nparams=0.004704, nflops=59.5968
+          (_expand_conv): Conv2d(
+            16, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 16, 160, 160]], output_shapes=[1, 96, 160, 160], nparams=0.001536, nflops=39.3216
+          )
+          (_bn0): BatchNorm2d(
+            96, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 160, 160]], output_shapes=[1, 96, 160, 160], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            96, 96, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=96, bias=False,
+            input_shapes=[[1, 96, 160, 160]], output_shapes=[1, 96, 80, 80], nparams=0.000864, nflops=5.5296
+          )
+          (_bn1): BatchNorm2d(
+            96, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 80, 80]], output_shapes=[1, 96, 80, 80], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            96, 24, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 96, 80, 80]], output_shapes=[1, 24, 80, 80], nparams=0.002304, nflops=14.7456
+          )
+          (_bn2): BatchNorm2d(
+            24, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 24, 80, 80]], output_shapes=[1, 24, 80, 80], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 96, 80, 80]], output_shapes=[1, 96, 80, 80], nparams=0.0, nflops=0.0
+          )
+        )
+        (1): MBConvBlock(
+          input_shapes=[[1, 24, 80, 80], None], output_shapes=[1, 24, 80, 80], nparams=0.008208, nflops=52.5312
+          (_expand_conv): Conv2d(
+            24, 144, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 24, 80, 80]], output_shapes=[1, 144, 80, 80], nparams=0.003456, nflops=22.1184
+          )
+          (_bn0): BatchNorm2d(
+            144, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 144, 80, 80]], output_shapes=[1, 144, 80, 80], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            144, 144, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=144, bias=False,
+            input_shapes=[[1, 144, 80, 80]], output_shapes=[1, 144, 80, 80], nparams=0.001296, nflops=8.2944
+          )
+          (_bn1): BatchNorm2d(
+            144, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 144, 80, 80]], output_shapes=[1, 144, 80, 80], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            144, 24, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 144, 80, 80]], output_shapes=[1, 24, 80, 80], nparams=0.003456, nflops=22.1184
+          )
+          (_bn2): BatchNorm2d(
+            24, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 24, 80, 80]], output_shapes=[1, 24, 80, 80], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 144, 80, 80]], output_shapes=[1, 144, 80, 80], nparams=0.0, nflops=0.0
+          )
+        )
+      )
+      (2): ModuleList(
+        (0): MBConvBlock(
+          input_shapes=[[1, 24, 80, 80], None, None], output_shapes=[[1, 40, 40, 40], [1, 144, 80, 80]], nparams=0.012816, nflops=37.0944
+          (_expand_conv): Conv2d(
+            24, 144, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 24, 80, 80]], output_shapes=[1, 144, 80, 80], nparams=0.003456, nflops=22.1184
+          )
+          (_bn0): BatchNorm2d(
+            144, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 144, 80, 80]], output_shapes=[1, 144, 80, 80], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            144, 144, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2), groups=144, bias=False,
+            input_shapes=[[1, 144, 80, 80]], output_shapes=[1, 144, 40, 40], nparams=0.0036, nflops=5.76
+          )
+          (_bn1): BatchNorm2d(
+            144, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 144, 40, 40]], output_shapes=[1, 144, 40, 40], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            144, 40, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 144, 40, 40]], output_shapes=[1, 40, 40, 40], nparams=0.00576, nflops=9.216
+          )
+          (_bn2): BatchNorm2d(
+            40, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 40, 40, 40]], output_shapes=[1, 40, 40, 40], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 144, 40, 40]], output_shapes=[1, 144, 40, 40], nparams=0.0, nflops=0.0
+          )
+        )
+        (1): MBConvBlock(
+          input_shapes=[[1, 40, 40, 40], None], output_shapes=[1, 40, 40, 40], nparams=0.0252, nflops=40.32
+          (_expand_conv): Conv2d(
+            40, 240, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 40, 40, 40]], output_shapes=[1, 240, 40, 40], nparams=0.0096, nflops=15.36
+          )
+          (_bn0): BatchNorm2d(
+            240, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 240, 40, 40]], output_shapes=[1, 240, 40, 40], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            240, 240, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=240, bias=False,
+            input_shapes=[[1, 240, 40, 40]], output_shapes=[1, 240, 40, 40], nparams=0.006, nflops=9.6
+          )
+          (_bn1): BatchNorm2d(
+            240, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 240, 40, 40]], output_shapes=[1, 240, 40, 40], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            240, 40, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 240, 40, 40]], output_shapes=[1, 40, 40, 40], nparams=0.0096, nflops=15.36
+          )
+          (_bn2): BatchNorm2d(
+            40, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 40, 40, 40]], output_shapes=[1, 40, 40, 40], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 240, 40, 40]], output_shapes=[1, 240, 40, 40], nparams=0.0, nflops=0.0
+          )
+        )
+      )
+      (3): ModuleList(
+        (0): MBConvBlock(
+          input_shapes=[[1, 40, 40, 40], None, None], output_shapes=[[1, 80, 20, 20], [1, 240, 40, 40]], nparams=0.03096, nflops=23.904
+          (_expand_conv): Conv2d(
+            40, 240, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 40, 40, 40]], output_shapes=[1, 240, 40, 40], nparams=0.0096, nflops=15.36
+          )
+          (_bn0): BatchNorm2d(
+            240, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 240, 40, 40]], output_shapes=[1, 240, 40, 40], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            240, 240, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=240, bias=False,
+            input_shapes=[[1, 240, 40, 40]], output_shapes=[1, 240, 20, 20], nparams=0.00216, nflops=0.864
+          )
+          (_bn1): BatchNorm2d(
+            240, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 240, 20, 20]], output_shapes=[1, 240, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            240, 80, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 240, 20, 20]], output_shapes=[1, 80, 20, 20], nparams=0.0192, nflops=7.68
+          )
+          (_bn2): BatchNorm2d(
+            80, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 80, 20, 20]], output_shapes=[1, 80, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 240, 20, 20]], output_shapes=[1, 240, 20, 20], nparams=0.0, nflops=0.0
+          )
+        )
+        (1): MBConvBlock(
+          input_shapes=[[1, 80, 20, 20], None], output_shapes=[1, 80, 20, 20], nparams=0.08112, nflops=32.448
+          (_expand_conv): Conv2d(
+            80, 480, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 80, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.0384, nflops=15.36
+          )
+          (_bn0): BatchNorm2d(
+            480, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            480, 480, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=480, bias=False,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.00432, nflops=1.728
+          )
+          (_bn1): BatchNorm2d(
+            480, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            480, 80, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 80, 20, 20], nparams=0.0384, nflops=15.36
+          )
+          (_bn2): BatchNorm2d(
+            80, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 80, 20, 20]], output_shapes=[1, 80, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.0, nflops=0.0
+          )
+        )
+        (2): MBConvBlock(
+          input_shapes=[[1, 80, 20, 20], None], output_shapes=[1, 80, 20, 20], nparams=0.08112, nflops=32.448
+          (_expand_conv): Conv2d(
+            80, 480, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 80, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.0384, nflops=15.36
+          )
+          (_bn0): BatchNorm2d(
+            480, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            480, 480, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=480, bias=False,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.00432, nflops=1.728
+          )
+          (_bn1): BatchNorm2d(
+            480, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            480, 80, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 80, 20, 20], nparams=0.0384, nflops=15.36
+          )
+          (_bn2): BatchNorm2d(
+            80, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 80, 20, 20]], output_shapes=[1, 80, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.0, nflops=0.0
+          )
+        )
+      )
+      (4): ModuleList(
+        (0): MBConvBlock(
+          input_shapes=[[1, 80, 20, 20], None, None], output_shapes=[[1, 112, 20, 20], [1, 480, 20, 20]], nparams=0.10416, nflops=41.664
+          (_expand_conv): Conv2d(
+            80, 480, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 80, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.0384, nflops=15.36
+          )
+          (_bn0): BatchNorm2d(
+            480, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            480, 480, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=480, bias=False,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.012, nflops=4.8
+          )
+          (_bn1): BatchNorm2d(
+            480, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            480, 112, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 112, 20, 20], nparams=0.05376, nflops=21.504
+          )
+          (_bn2): BatchNorm2d(
+            112, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 112, 20, 20]], output_shapes=[1, 112, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 480, 20, 20]], output_shapes=[1, 480, 20, 20], nparams=0.0, nflops=0.0
+          )
+        )
+        (1): MBConvBlock(
+          input_shapes=[[1, 112, 20, 20], None], output_shapes=[1, 112, 20, 20], nparams=0.167328, nflops=66.9312
+          (_expand_conv): Conv2d(
+            112, 672, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 112, 20, 20]], output_shapes=[1, 672, 20, 20], nparams=0.075264, nflops=30.1056
+          )
+          (_bn0): BatchNorm2d(
+            672, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 672, 20, 20]], output_shapes=[1, 672, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            672, 672, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=672, bias=False,
+            input_shapes=[[1, 672, 20, 20]], output_shapes=[1, 672, 20, 20], nparams=0.0168, nflops=6.72
+          )
+          (_bn1): BatchNorm2d(
+            672, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 672, 20, 20]], output_shapes=[1, 672, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            672, 112, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 672, 20, 20]], output_shapes=[1, 112, 20, 20], nparams=0.075264, nflops=30.1056
+          )
+          (_bn2): BatchNorm2d(
+            112, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 112, 20, 20]], output_shapes=[1, 112, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 672, 20, 20]], output_shapes=[1, 672, 20, 20], nparams=0.0, nflops=0.0
+          )
+        )
+        (2): MBConvBlock(
+          input_shapes=[[1, 112, 20, 20], None], output_shapes=[1, 112, 20, 20], nparams=0.167328, nflops=66.9312
+          (_expand_conv): Conv2d(
+            112, 672, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 112, 20, 20]], output_shapes=[1, 672, 20, 20], nparams=0.075264, nflops=30.1056
+          )
+          (_bn0): BatchNorm2d(
+            672, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 672, 20, 20]], output_shapes=[1, 672, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            672, 672, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=672, bias=False,
+            input_shapes=[[1, 672, 20, 20]], output_shapes=[1, 672, 20, 20], nparams=0.0168, nflops=6.72
+          )
+          (_bn1): BatchNorm2d(
+            672, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 672, 20, 20]], output_shapes=[1, 672, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            672, 112, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 672, 20, 20]], output_shapes=[1, 112, 20, 20], nparams=0.075264, nflops=30.1056
+          )
+          (_bn2): BatchNorm2d(
+            112, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 112, 20, 20]], output_shapes=[1, 112, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 672, 20, 20]], output_shapes=[1, 672, 20, 20], nparams=0.0, nflops=0.0
+          )
+        )
+      )
+      (5): ModuleList(
+        (0): MBConvBlock(
+          input_shapes=[[1, 112, 20, 20], None, None], output_shapes=[[1, 192, 10, 10], [1, 672, 20, 20]], nparams=0.221088, nflops=44.688
+          (_expand_conv): Conv2d(
+            112, 672, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 112, 20, 20]], output_shapes=[1, 672, 20, 20], nparams=0.075264, nflops=30.1056
+          )
+          (_bn0): BatchNorm2d(
+            672, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 672, 20, 20]], output_shapes=[1, 672, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            672, 672, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2), groups=672, bias=False,
+            input_shapes=[[1, 672, 20, 20]], output_shapes=[1, 672, 10, 10], nparams=0.0168, nflops=1.68
+          )
+          (_bn1): BatchNorm2d(
+            672, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 672, 10, 10]], output_shapes=[1, 672, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            672, 192, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 672, 10, 10]], output_shapes=[1, 192, 10, 10], nparams=0.129024, nflops=12.9024
+          )
+          (_bn2): BatchNorm2d(
+            192, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 192, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 672, 10, 10]], output_shapes=[1, 672, 10, 10], nparams=0.0, nflops=0.0
+          )
+        )
+        (1): MBConvBlock(
+          input_shapes=[[1, 192, 10, 10], None], output_shapes=[1, 192, 10, 10], nparams=0.471168, nflops=47.1168
+          (_expand_conv): Conv2d(
+            192, 1152, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.221184, nflops=22.1184
+          )
+          (_bn0): BatchNorm2d(
+            1152, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            1152, 1152, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=1152, bias=False,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0288, nflops=2.88
+          )
+          (_bn1): BatchNorm2d(
+            1152, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            1152, 192, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 192, 10, 10], nparams=0.221184, nflops=22.1184
+          )
+          (_bn2): BatchNorm2d(
+            192, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 192, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0, nflops=0.0
+          )
+        )
+        (2): MBConvBlock(
+          input_shapes=[[1, 192, 10, 10], None], output_shapes=[1, 192, 10, 10], nparams=0.471168, nflops=47.1168
+          (_expand_conv): Conv2d(
+            192, 1152, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.221184, nflops=22.1184
+          )
+          (_bn0): BatchNorm2d(
+            1152, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            1152, 1152, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=1152, bias=False,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0288, nflops=2.88
+          )
+          (_bn1): BatchNorm2d(
+            1152, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            1152, 192, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 192, 10, 10], nparams=0.221184, nflops=22.1184
+          )
+          (_bn2): BatchNorm2d(
+            192, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 192, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0, nflops=0.0
+          )
+        )
+        (3): MBConvBlock(
+          input_shapes=[[1, 192, 10, 10], None], output_shapes=[1, 192, 10, 10], nparams=0.471168, nflops=47.1168
+          (_expand_conv): Conv2d(
+            192, 1152, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.221184, nflops=22.1184
+          )
+          (_bn0): BatchNorm2d(
+            1152, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            1152, 1152, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=1152, bias=False,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0288, nflops=2.88
+          )
+          (_bn1): BatchNorm2d(
+            1152, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            1152, 192, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 192, 10, 10], nparams=0.221184, nflops=22.1184
+          )
+          (_bn2): BatchNorm2d(
+            192, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 192, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0, nflops=0.0
+          )
+        )
+      )
+      (6): ModuleList(
+        (0): MBConvBlock(
+          input_shapes=[[1, 192, 10, 10], None, None], output_shapes=[[1, 320, 10, 10], [1, 1152, 10, 10]], nparams=0.600192, nflops=60.0192
+          (_expand_conv): Conv2d(
+            192, 1152, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.221184, nflops=22.1184
+          )
+          (_bn0): BatchNorm2d(
+            1152, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (_depthwise_conv): Conv2d(
+            1152, 1152, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1152, bias=False,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.010368, nflops=1.0368
+          )
+          (_bn1): BatchNorm2d(
+            1152, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (_project_conv): Conv2d(
+            1152, 320, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 320, 10, 10], nparams=0.36864, nflops=36.864
+          )
+          (_bn2): BatchNorm2d(
+            320, eps=0.001, momentum=0.01, affine=True, track_running_stats=True,
+            input_shapes=[[1, 320, 10, 10]], output_shapes=[1, 320, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (_relu): ReLU6(
+            inplace=True,
+            input_shapes=[[1, 1152, 10, 10]], output_shapes=[1, 1152, 10, 10], nparams=0.0, nflops=0.0
+          )
+        )
+      )
+    )
+  )
+  (fpn): GhostPAN(
+    input_shapes=[[[1, 240, 40, 40], [1, 672, 20, 20], [1, 320, 10, 10]]], output_shapes=[[1, 96, 40, 40], [1, 96, 20, 20], [1, 96, 10, 10], [1, 96, 5, 5]], nparams=0.316416, nflops=166.9296
+    (upsample): Upsample(
+      scale_factor=2.0, mode=bilinear,
+      input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 40, 40], nparams=0.0, nflops=0.0
+    )
+    (reduce_layers): ModuleList(
+      (0): ConvModule(
+        input_shapes=[[1, 240, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.02304, nflops=36.864
+        (conv): Conv2d(
+          240, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+          input_shapes=[[1, 240, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.02304, nflops=36.864
+        )
+        (bn): BatchNorm2d(
+          96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+          input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.0, nflops=0.0
+        )
+        (act): LeakyReLU(
+          negative_slope=0.1, inplace=True,
+          input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.0, nflops=0.0
+        )
+      )
+      (1): ConvModule(
+        input_shapes=[[1, 672, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.064512, nflops=25.8048
+        (conv): Conv2d(
+          672, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+          input_shapes=[[1, 672, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.064512, nflops=25.8048
+        )
+        (bn): BatchNorm2d(
+          96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+          input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0, nflops=0.0
+        )
+        (act): LeakyReLU(
+          negative_slope=0.1, inplace=True,
+          input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0, nflops=0.0
+        )
+      )
+      (2): ConvModule(
+        input_shapes=[[1, 320, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.03072, nflops=3.072
+        (conv): Conv2d(
+          320, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+          input_shapes=[[1, 320, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.03072, nflops=3.072
+        )
+        (bn): BatchNorm2d(
+          96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+          input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.0, nflops=0.0
+        )
+        (act): LeakyReLU(
+          negative_slope=0.1, inplace=True,
+          input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.0, nflops=0.0
+        )
+      )
+    )
+    (top_down_blocks): ModuleList(
+      (0): GhostBlocks(
+        input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.03792, nflops=15.168
+        (blocks): Sequential(
+          input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.03792, nflops=15.168
+          (0): GhostBottleneck(
+            input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.03792, nflops=15.168
+            (ghost1): GhostModule(
+              input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.009648, nflops=3.8592
+              (primary_conv): Sequential(
+                input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.009216, nflops=3.6864
+                (0): Conv2d(
+                  192, 48, kernel_size=(1, 1), stride=(1, 1), bias=False,
+                  input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.009216, nflops=3.6864
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0
+                )
+                (2): LeakyReLU(
+                  negative_slope=0.1, inplace=True,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0
+                )
+              )
+              (cheap_operation): Sequential(
+                input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.000432, nflops=0.1728
+                (0): Conv2d(
+                  48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.000432, nflops=0.1728
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0
+                )
+                (2): LeakyReLU(
+                  negative_slope=0.1, inplace=True,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0
+                )
+              )
+            )
+            (ghost2): GhostModule(
+              input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.00504, nflops=2.016
+              (primary_conv): Sequential(
+                input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.004608, nflops=1.8432
+                (0): Conv2d(
+                  96, 48, kernel_size=(1, 1), stride=(1, 1), bias=False,
+                  input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.004608, nflops=1.8432
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0
+                )
+                (2): Sequential(input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0)
+              )
+              (cheap_operation): Sequential(
+                input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.000432, nflops=0.1728
+                (0): Conv2d(
+                  48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.000432, nflops=0.1728
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0
+                )
+                (2): Sequential(input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0)
+              )
+            )
+            (shortcut): Sequential(
+              input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.023232, nflops=9.2928
+              (0): Conv2d(
+                192, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=192, bias=False,
+                input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 192, 20, 20], nparams=0.0048, nflops=1.92
+              )
+              (1): BatchNorm2d(
+                192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 192, 20, 20], nparams=0.0, nflops=0.0
+              )
+              (2): Conv2d(
+                192, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+                input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.018432, nflops=7.3728
+              )
+              (3): BatchNorm2d(
+                96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0, nflops=0.0
+              )
+            )
+          )
+        )
+      )
+      (1): GhostBlocks(
+        input_shapes=[[1, 192, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.03792, nflops=60.672
+        (blocks): Sequential(
+          input_shapes=[[1, 192, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.03792, nflops=60.672
+          (0): GhostBottleneck(
+            input_shapes=[[1, 192, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.03792, nflops=60.672
+            (ghost1): GhostModule(
+              input_shapes=[[1, 192, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.009648, nflops=15.4368
+              (primary_conv): Sequential(
+                input_shapes=[[1, 192, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.009216, nflops=14.7456
+                (0): Conv2d(
+                  192, 48, kernel_size=(1, 1), stride=(1, 1), bias=False,
+                  input_shapes=[[1, 192, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.009216, nflops=14.7456
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.0, nflops=0.0
+                )
+                (2): LeakyReLU(
+                  negative_slope=0.1, inplace=True,
+                  input_shapes=[[1, 48, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.0, nflops=0.0
+                )
+              )
+              (cheap_operation): Sequential(
+                input_shapes=[[1, 48, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.000432, nflops=0.6912
+                (0): Conv2d(
+                  48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False,
+                  input_shapes=[[1, 48, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.000432, nflops=0.6912
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.0, nflops=0.0
+                )
+                (2): LeakyReLU(
+                  negative_slope=0.1, inplace=True,
+                  input_shapes=[[1, 48, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.0, nflops=0.0
+                )
+              )
+            )
+            (ghost2): GhostModule(
+              input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.00504, nflops=8.064
+              (primary_conv): Sequential(
+                input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.004608, nflops=7.3728
+                (0): Conv2d(
+                  96, 48, kernel_size=(1, 1), stride=(1, 1), bias=False,
+                  input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.004608, nflops=7.3728
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.0, nflops=0.0
+                )
+                (2): Sequential(input_shapes=[[1, 48, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.0, nflops=0.0)
+              )
+              (cheap_operation): Sequential(
+                input_shapes=[[1, 48, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.000432, nflops=0.6912
+                (0): Conv2d(
+                  48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False,
+                  input_shapes=[[1, 48, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.000432, nflops=0.6912
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.0, nflops=0.0
+                )
+                (2): Sequential(input_shapes=[[1, 48, 40, 40]], output_shapes=[1, 48, 40, 40], nparams=0.0, nflops=0.0)
+              )
+            )
+            (shortcut): Sequential(
+              input_shapes=[[1, 192, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.023232, nflops=37.1712
+              (0): Conv2d(
+                192, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=192, bias=False,
+                input_shapes=[[1, 192, 40, 40]], output_shapes=[1, 192, 40, 40], nparams=0.0048, nflops=7.68
+              )
+              (1): BatchNorm2d(
+                192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                input_shapes=[[1, 192, 40, 40]], output_shapes=[1, 192, 40, 40], nparams=0.0, nflops=0.0
+              )
+              (2): Conv2d(
+                192, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+                input_shapes=[[1, 192, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.018432, nflops=29.4912
+              )
+              (3): BatchNorm2d(
+                96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.0, nflops=0.0
+              )
+            )
+          )
+        )
+      )
+    )
+    (downsamples): ModuleList(
+      (0): DepthwiseConvModule(
+        input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 20, 20], nparams=0.011616, nflops=4.6464
+        (depthwise): Conv2d(
+          96, 96, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2), groups=96, bias=False,
+          input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 20, 20], nparams=0.0024, nflops=0.96
+        )
+        (pointwise): Conv2d(
+          96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+          input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.009216, nflops=3.6864
+        )
+        (dwnorm): BatchNorm2d(
+          96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+          input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0, nflops=0.0
+        )
+        (pwnorm): BatchNorm2d(
+          96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+          input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0, nflops=0.0
+        )
+        (act): LeakyReLU(
+          negative_slope=0.1, inplace=True,
+          input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0, nflops=0.0
+        )
+      )
+      (1): DepthwiseConvModule(
+        input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 10, 10], nparams=0.011616, nflops=1.1616
+        (depthwise): Conv2d(
+          96, 96, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2), groups=96, bias=False,
+          input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 10, 10], nparams=0.0024, nflops=0.24
+        )
+        (pointwise): Conv2d(
+          96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+          input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.009216, nflops=0.9216
+        )
+        (dwnorm): BatchNorm2d(
+          96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+          input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.0, nflops=0.0
+        )
+        (pwnorm): BatchNorm2d(
+          96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+          input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.0, nflops=0.0
+        )
+        (act): LeakyReLU(
+          negative_slope=0.1, inplace=True,
+          input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.0, nflops=0.0
+        )
+      )
+    )
+    (bottom_up_blocks): ModuleList(
+      (0): GhostBlocks(
+        input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.03792, nflops=15.168
+        (blocks): Sequential(
+          input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.03792, nflops=15.168
+          (0): GhostBottleneck(
+            input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.03792, nflops=15.168
+            (ghost1): GhostModule(
+              input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.009648, nflops=3.8592
+              (primary_conv): Sequential(
+                input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.009216, nflops=3.6864
+                (0): Conv2d(
+                  192, 48, kernel_size=(1, 1), stride=(1, 1), bias=False,
+                  input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.009216, nflops=3.6864
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0
+                )
+                (2): LeakyReLU(
+                  negative_slope=0.1, inplace=True,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0
+                )
+              )
+              (cheap_operation): Sequential(
+                input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.000432, nflops=0.1728
+                (0): Conv2d(
+                  48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.000432, nflops=0.1728
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0
+                )
+                (2): LeakyReLU(
+                  negative_slope=0.1, inplace=True,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0
+                )
+              )
+            )
+            (ghost2): GhostModule(
+              input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.00504, nflops=2.016
+              (primary_conv): Sequential(
+                input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.004608, nflops=1.8432
+                (0): Conv2d(
+                  96, 48, kernel_size=(1, 1), stride=(1, 1), bias=False,
+                  input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.004608, nflops=1.8432
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0
+                )
+                (2): Sequential(input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0)
+              )
+              (cheap_operation): Sequential(
+                input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.000432, nflops=0.1728
+                (0): Conv2d(
+                  48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.000432, nflops=0.1728
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0
+                )
+                (2): Sequential(input_shapes=[[1, 48, 20, 20]], output_shapes=[1, 48, 20, 20], nparams=0.0, nflops=0.0)
+              )
+            )
+            (shortcut): Sequential(
+              input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.023232, nflops=9.2928
+              (0): Conv2d(
+                192, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=192, bias=False,
+                input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 192, 20, 20], nparams=0.0048, nflops=1.92
+              )
+              (1): BatchNorm2d(
+                192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 192, 20, 20], nparams=0.0, nflops=0.0
+              )
+              (2): Conv2d(
+                192, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+                input_shapes=[[1, 192, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.018432, nflops=7.3728
+              )
+              (3): BatchNorm2d(
+                96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0, nflops=0.0
+              )
+            )
+          )
+        )
+      )
+      (1): GhostBlocks(
+        input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.03792, nflops=3.792
+        (blocks): Sequential(
+          input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.03792, nflops=3.792
+          (0): GhostBottleneck(
+            input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.03792, nflops=3.792
+            (ghost1): GhostModule(
+              input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.009648, nflops=0.9648
+              (primary_conv): Sequential(
+                input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.009216, nflops=0.9216
+                (0): Conv2d(
+                  192, 48, kernel_size=(1, 1), stride=(1, 1), bias=False,
+                  input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.009216, nflops=0.9216
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.0, nflops=0.0
+                )
+                (2): LeakyReLU(
+                  negative_slope=0.1, inplace=True,
+                  input_shapes=[[1, 48, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.0, nflops=0.0
+                )
+              )
+              (cheap_operation): Sequential(
+                input_shapes=[[1, 48, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.000432, nflops=0.0432
+                (0): Conv2d(
+                  48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False,
+                  input_shapes=[[1, 48, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.000432, nflops=0.0432
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.0, nflops=0.0
+                )
+                (2): LeakyReLU(
+                  negative_slope=0.1, inplace=True,
+                  input_shapes=[[1, 48, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.0, nflops=0.0
+                )
+              )
+            )
+            (ghost2): GhostModule(
+              input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.00504, nflops=0.504
+              (primary_conv): Sequential(
+                input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.004608, nflops=0.4608
+                (0): Conv2d(
+                  96, 48, kernel_size=(1, 1), stride=(1, 1), bias=False,
+                  input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.004608, nflops=0.4608
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.0, nflops=0.0
+                )
+                (2): Sequential(input_shapes=[[1, 48, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.0, nflops=0.0)
+              )
+              (cheap_operation): Sequential(
+                input_shapes=[[1, 48, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.000432, nflops=0.0432
+                (0): Conv2d(
+                  48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False,
+                  input_shapes=[[1, 48, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.000432, nflops=0.0432
+                )
+                (1): BatchNorm2d(
+                  48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                  input_shapes=[[1, 48, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.0, nflops=0.0
+                )
+                (2): Sequential(input_shapes=[[1, 48, 10, 10]], output_shapes=[1, 48, 10, 10], nparams=0.0, nflops=0.0)
+              )
+            )
+            (shortcut): Sequential(
+              input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.023232, nflops=2.3232
+              (0): Conv2d(
+                192, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=192, bias=False,
+                input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 192, 10, 10], nparams=0.0048, nflops=0.48
+              )
+              (1): BatchNorm2d(
+                192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 192, 10, 10], nparams=0.0, nflops=0.0
+              )
+              (2): Conv2d(
+                192, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+                input_shapes=[[1, 192, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.018432, nflops=1.8432
+              )
+              (3): BatchNorm2d(
+                96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+                input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.0, nflops=0.0
+              )
+            )
+          )
+        )
+      )
+    )
+    (extra_lvl_in_conv): ModuleList(
+      (0): DepthwiseConvModule(
+        input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 5, 5], nparams=0.011616, nflops=0.2904
+        (depthwise): Conv2d(
+          96, 96, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2), groups=96, bias=False,
+          input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 5, 5], nparams=0.0024, nflops=0.06
+        )
+        (pointwise): Conv2d(
+          96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+          input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.009216, nflops=0.2304
+        )
+        (dwnorm): BatchNorm2d(
+          96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+          input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.0, nflops=0.0
+        )
+        (pwnorm): BatchNorm2d(
+          96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+          input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.0, nflops=0.0
+        )
+        (act): LeakyReLU(
+          negative_slope=0.1, inplace=True,
+          input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.0, nflops=0.0
+        )
+      )
+    )
+    (extra_lvl_out_conv): ModuleList(
+      (0): DepthwiseConvModule(
+        input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 5, 5], nparams=0.011616, nflops=0.2904
+        (depthwise): Conv2d(
+          96, 96, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2), groups=96, bias=False,
+          input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 5, 5], nparams=0.0024, nflops=0.06
+        )
+        (pointwise): Conv2d(
+          96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+          input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.009216, nflops=0.2304
+        )
+        (dwnorm): BatchNorm2d(
+          96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+          input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.0, nflops=0.0
+        )
+        (pwnorm): BatchNorm2d(
+          96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+          input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.0, nflops=0.0
+        )
+        (act): LeakyReLU(
+          negative_slope=0.1, inplace=True,
+          input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.0, nflops=0.0
+        )
+      )
+    )
+  )
+  (head): NanoDetPlusHead(
+    input_shapes=[[[1, 96, 40, 40], [1, 96, 20, 20], [1, 96, 10, 10], [1, 96, 5, 5]]], output_shapes=[1, 2125, 112], nparams=0.135936, nflops=72.216
+    (distribution_project): Integral()
+    (loss_qfl): QualityFocalLoss()
+    (loss_dfl): DistributionFocalLoss()
+    (loss_bbox): GIoULoss()
+    (cls_convs): ModuleList(
+      (0): ModuleList(
+        (0): DepthwiseConvModule(
+          input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.011616, nflops=18.5856
+          (depthwise): Conv2d(
+            96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96, bias=False,
+            input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.0024, nflops=3.84
+          )
+          (pointwise): Conv2d(
+            96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.009216, nflops=14.7456
+          )
+          (dwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.0, nflops=0.0
+          )
+          (pwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.0, nflops=0.0
+          )
+          (act): LeakyReLU(
+            negative_slope=0.1, inplace=True,
+            input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.0, nflops=0.0
+          )
+        )
+        (1): DepthwiseConvModule(
+          input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.011616, nflops=18.5856
+          (depthwise): Conv2d(
+            96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96, bias=False,
+            input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.0024, nflops=3.84
+          )
+          (pointwise): Conv2d(
+            96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.009216, nflops=14.7456
+          )
+          (dwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.0, nflops=0.0
+          )
+          (pwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.0, nflops=0.0
+          )
+          (act): LeakyReLU(
+            negative_slope=0.1, inplace=True,
+            input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 96, 40, 40], nparams=0.0, nflops=0.0
+          )
+        )
+      )
+      (1): ModuleList(
+        (0): DepthwiseConvModule(
+          input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.011616, nflops=4.6464
+          (depthwise): Conv2d(
+            96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96, bias=False,
+            input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0024, nflops=0.96
+          )
+          (pointwise): Conv2d(
+            96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.009216, nflops=3.6864
+          )
+          (dwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (pwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (act): LeakyReLU(
+            negative_slope=0.1, inplace=True,
+            input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0, nflops=0.0
+          )
+        )
+        (1): DepthwiseConvModule(
+          input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.011616, nflops=4.6464
+          (depthwise): Conv2d(
+            96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96, bias=False,
+            input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0024, nflops=0.96
+          )
+          (pointwise): Conv2d(
+            96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.009216, nflops=3.6864
+          )
+          (dwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (pwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0, nflops=0.0
+          )
+          (act): LeakyReLU(
+            negative_slope=0.1, inplace=True,
+            input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 96, 20, 20], nparams=0.0, nflops=0.0
+          )
+        )
+      )
+      (2): ModuleList(
+        (0): DepthwiseConvModule(
+          input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.011616, nflops=1.1616
+          (depthwise): Conv2d(
+            96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96, bias=False,
+            input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.0024, nflops=0.24
+          )
+          (pointwise): Conv2d(
+            96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.009216, nflops=0.9216
+          )
+          (dwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (pwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (act): LeakyReLU(
+            negative_slope=0.1, inplace=True,
+            input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.0, nflops=0.0
+          )
+        )
+        (1): DepthwiseConvModule(
+          input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.011616, nflops=1.1616
+          (depthwise): Conv2d(
+            96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96, bias=False,
+            input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.0024, nflops=0.24
+          )
+          (pointwise): Conv2d(
+            96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.009216, nflops=0.9216
+          )
+          (dwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (pwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.0, nflops=0.0
+          )
+          (act): LeakyReLU(
+            negative_slope=0.1, inplace=True,
+            input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 96, 10, 10], nparams=0.0, nflops=0.0
+          )
+        )
+      )
+      (3): ModuleList(
+        (0): DepthwiseConvModule(
+          input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.011616, nflops=0.2904
+          (depthwise): Conv2d(
+            96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96, bias=False,
+            input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.0024, nflops=0.06
+          )
+          (pointwise): Conv2d(
+            96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.009216, nflops=0.2304
+          )
+          (dwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.0, nflops=0.0
+          )
+          (pwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.0, nflops=0.0
+          )
+          (act): LeakyReLU(
+            negative_slope=0.1, inplace=True,
+            input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.0, nflops=0.0
+          )
+        )
+        (1): DepthwiseConvModule(
+          input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.011616, nflops=0.2904
+          (depthwise): Conv2d(
+            96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96, bias=False,
+            input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.0024, nflops=0.06
+          )
+          (pointwise): Conv2d(
+            96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False,
+            input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.009216, nflops=0.2304
+          )
+          (dwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.0, nflops=0.0
+          )
+          (pwnorm): BatchNorm2d(
+            96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True,
+            input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.0, nflops=0.0
+          )
+          (act): LeakyReLU(
+            negative_slope=0.1, inplace=True,
+            input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 96, 5, 5], nparams=0.0, nflops=0.0
+          )
+        )
+      )
+    )
+    (gfl_cls): ModuleList(
+      (0): Conv2d(
+        96, 112, kernel_size=(1, 1), stride=(1, 1),
+        input_shapes=[[1, 96, 40, 40]], output_shapes=[1, 112, 40, 40], nparams=0.010752, nflops=17.2032
+      )
+      (1): Conv2d(
+        96, 112, kernel_size=(1, 1), stride=(1, 1),
+        input_shapes=[[1, 96, 20, 20]], output_shapes=[1, 112, 20, 20], nparams=0.010752, nflops=4.3008
+      )
+      (2): Conv2d(
+        96, 112, kernel_size=(1, 1), stride=(1, 1),
+        input_shapes=[[1, 96, 10, 10]], output_shapes=[1, 112, 10, 10], nparams=0.010752, nflops=1.0752
+      )
+      (3): Conv2d(
+        96, 112, kernel_size=(1, 1), stride=(1, 1),
+        input_shapes=[[1, 96, 5, 5]], output_shapes=[1, 112, 5, 5], nparams=0.010752, nflops=0.2688
+      )
+    )
+  )
+  (aux_fpn): GhostPAN(
+    (upsample): Upsample(scale_factor=2.0, mode=bilinear)
+    (reduce_layers): ModuleList(
+      (0): ConvModule(
+        (conv): Conv2d(240, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (1): ConvModule(
+        (conv): Conv2d(672, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (2): ConvModule(
+        (conv): Conv2d(320, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+    )
+    (top_down_blocks): ModuleList(
+      (0): GhostBlocks(
+        (blocks): Sequential(
+          (0): GhostBottleneck(
+            (ghost1): GhostModule(
+              (primary_conv): Sequential(
+                (0): Conv2d(192, 48, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): LeakyReLU(negative_slope=0.1, inplace=True)
+              )
+              (cheap_operation): Sequential(
+                (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): LeakyReLU(negative_slope=0.1, inplace=True)
+              )
+            )
+            (ghost2): GhostModule(
+              (primary_conv): Sequential(
+                (0): Conv2d(96, 48, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): Sequential()
+              )
+              (cheap_operation): Sequential(
+                (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): Sequential()
+              )
+            )
+            (shortcut): Sequential(
+              (0): Conv2d(192, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=192, bias=False)
+              (1): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): Conv2d(192, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (3): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+        )
+      )
+      (1): GhostBlocks(
+        (blocks): Sequential(
+          (0): GhostBottleneck(
+            (ghost1): GhostModule(
+              (primary_conv): Sequential(
+                (0): Conv2d(192, 48, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): LeakyReLU(negative_slope=0.1, inplace=True)
+              )
+              (cheap_operation): Sequential(
+                (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): LeakyReLU(negative_slope=0.1, inplace=True)
+              )
+            )
+            (ghost2): GhostModule(
+              (primary_conv): Sequential(
+                (0): Conv2d(96, 48, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): Sequential()
+              )
+              (cheap_operation): Sequential(
+                (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): Sequential()
+              )
+            )
+            (shortcut): Sequential(
+              (0): Conv2d(192, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=192, bias=False)
+              (1): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): Conv2d(192, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (3): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+        )
+      )
+    )
+    (downsamples): ModuleList(
+      (0): DepthwiseConvModule(
+        (depthwise): Conv2d(96, 96, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2), groups=96, bias=False)
+        (pointwise): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (dwnorm): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (pwnorm): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (1): DepthwiseConvModule(
+        (depthwise): Conv2d(96, 96, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2), groups=96, bias=False)
+        (pointwise): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (dwnorm): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (pwnorm): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+    )
+    (bottom_up_blocks): ModuleList(
+      (0): GhostBlocks(
+        (blocks): Sequential(
+          (0): GhostBottleneck(
+            (ghost1): GhostModule(
+              (primary_conv): Sequential(
+                (0): Conv2d(192, 48, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): LeakyReLU(negative_slope=0.1, inplace=True)
+              )
+              (cheap_operation): Sequential(
+                (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): LeakyReLU(negative_slope=0.1, inplace=True)
+              )
+            )
+            (ghost2): GhostModule(
+              (primary_conv): Sequential(
+                (0): Conv2d(96, 48, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): Sequential()
+              )
+              (cheap_operation): Sequential(
+                (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): Sequential()
+              )
+            )
+            (shortcut): Sequential(
+              (0): Conv2d(192, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=192, bias=False)
+              (1): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): Conv2d(192, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (3): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+        )
+      )
+      (1): GhostBlocks(
+        (blocks): Sequential(
+          (0): GhostBottleneck(
+            (ghost1): GhostModule(
+              (primary_conv): Sequential(
+                (0): Conv2d(192, 48, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): LeakyReLU(negative_slope=0.1, inplace=True)
+              )
+              (cheap_operation): Sequential(
+                (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): LeakyReLU(negative_slope=0.1, inplace=True)
+              )
+            )
+            (ghost2): GhostModule(
+              (primary_conv): Sequential(
+                (0): Conv2d(96, 48, kernel_size=(1, 1), stride=(1, 1), bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): Sequential()
+              )
+              (cheap_operation): Sequential(
+                (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False)
+                (1): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (2): Sequential()
+              )
+            )
+            (shortcut): Sequential(
+              (0): Conv2d(192, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=192, bias=False)
+              (1): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): Conv2d(192, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (3): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+        )
+      )
+    )
+    (extra_lvl_in_conv): ModuleList(
+      (0): DepthwiseConvModule(
+        (depthwise): Conv2d(96, 96, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2), groups=96, bias=False)
+        (pointwise): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (dwnorm): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (pwnorm): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+    )
+    (extra_lvl_out_conv): ModuleList(
+      (0): DepthwiseConvModule(
+        (depthwise): Conv2d(96, 96, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2), groups=96, bias=False)
+        (pointwise): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (dwnorm): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (pwnorm): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+    )
+  )
+  (aux_head): SimpleConvHead(
+    (relu): ReLU(inplace=True)
+    (cls_convs): ModuleList(
+      (0): ConvModule(
+        (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (gn): GroupNorm(32, 192, eps=1e-05, affine=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (1): ConvModule(
+        (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (gn): GroupNorm(32, 192, eps=1e-05, affine=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (2): ConvModule(
+        (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (gn): GroupNorm(32, 192, eps=1e-05, affine=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (3): ConvModule(
+        (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (gn): GroupNorm(32, 192, eps=1e-05, affine=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+    )
+    (reg_convs): ModuleList(
+      (0): ConvModule(
+        (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (gn): GroupNorm(32, 192, eps=1e-05, affine=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (1): ConvModule(
+        (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (gn): GroupNorm(32, 192, eps=1e-05, affine=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (2): ConvModule(
+        (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (gn): GroupNorm(32, 192, eps=1e-05, affine=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (3): ConvModule(
+        (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (gn): GroupNorm(32, 192, eps=1e-05, affine=True)
+        (act): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+    )
+    (gfl_cls): Conv2d(192, 80, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (gfl_reg): Conv2d(192, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (scales): ModuleList(
+      (0): Scale()
+      (1): Scale()
+      (2): Scale()
+      (3): Scale()
+    )
+  )
+)
+nparams: 3.371744, nflops 981.6704

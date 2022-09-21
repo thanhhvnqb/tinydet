@@ -5,7 +5,7 @@
 #           AP_small = 0.083
 #               AP_m = 0.278
 #               AP_l = 0.451
-save_dir: work_dirs/nanodet-plus-pretrain-m_320
+save_dir: work_dirs/nanodet-plus-EfficientNetLite0_320
 model:
   weight_averager:
     name: ExpMovingAverager
@@ -14,14 +14,14 @@ model:
     name: NanoDetPlus
     detach_epoch: 10
     backbone:
-      name: ShuffleNetV2
-      model_size: 1.0x
-      out_stages: [2,3,4]
-      activation: LeakyReLU
-      pretrain: True
+      name: EfficientNetLite
+      model_name: efficientnet_lite0
+      out_stages: [2,4,6]
+      activation: ReLU6
+      pretrain: False
     fpn:
       name: GhostPAN
-      in_channels: [116, 232, 464]
+      in_channels: [40, 112, 320]
       out_channels: 96
       kernel_size: 5
       num_extra_level: 1
@@ -92,7 +92,7 @@ device:
   tpu_ids: None
   gpu_ids: [0] # Set like [0, 1, 2, 3] if you have multi-GPUs
   workers_per_gpu: 4 # per_device
-  batchsize_per_gpu: 128 # per_device
+  batchsize_per_gpu: 96 # per_device
 schedule:
 #  resume:
 #  load_model:

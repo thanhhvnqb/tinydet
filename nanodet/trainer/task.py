@@ -78,12 +78,17 @@ class TrainingTask(LightningModule):
 
         # log train losses
         if self.global_step % self.cfg.log.interval == 0:
+            memory = (
+                torch.cuda.memory_reserved() / 1e9 if torch.cuda.is_available() else 0
+            )
             lr = self.optimizers().param_groups[0]["lr"]
-            log_msg = "Train|Epoch{}/{}|Iter{}({})| lr:{:.2e}| ".format(
+            log_msg = "Train|Epoch{}/{}|Iter{}({}/{})| mem:{:.3g}G| lr:{:.2e}| ".format(
                 self.current_epoch + 1,
                 self.cfg.schedule.total_epochs,
                 self.global_step,
-                batch_idx,
+                batch_idx + 1,
+                self.trainer.num_training_batches,
+                memory,
                 lr,
             )
             self.scalar_summary("Train_loss/lr", "Train", lr, self.global_step)
@@ -103,6 +108,7 @@ class TrainingTask(LightningModule):
 
     def training_epoch_end(self, outputs: List[Any]) -> None:
         self.trainer.save_checkpoint(os.path.join(self.cfg.save_dir, "model_last.ckpt"))
+        self.lr_scheduler.step()
 
     def validation_step(self, batch, batch_idx):
         batch = self._preprocess_batch_input(batch)
@@ -112,12 +118,17 @@ class TrainingTask(LightningModule):
             preds, loss, loss_states = self.model.forward_train(batch)
 
         if batch_idx % self.cfg.log.interval == 0:
+            memory = (
+                torch.cuda.memory_reserved() / 1e9 if torch.cuda.is_available() else 0
+            )
             lr = self.optimizers().param_groups[0]["lr"]
-            log_msg = "Val|Epoch{}/{}|Iter{}({})| lr:{:.2e}| ".format(
+            log_msg = "Val|Epoch{}/{}|Iter{}({}/{})| mem:{:.3g}G| lr:{:.2e}| ".format(
                 self.current_epoch + 1,
                 self.cfg.schedule.total_epochs,
                 self.global_step,
-                batch_idx,
+                batch_idx + 1,
+                sum(self.trainer.num_val_batches),
+                memory,
                 lr,
             )
             for loss_name in loss_states:
@@ -221,13 +232,13 @@ class TrainingTask(LightningModule):
         schedule_cfg = copy.deepcopy(self.cfg.schedule.lr_schedule)
         name = schedule_cfg.pop("name")
         build_scheduler = getattr(torch.optim.lr_scheduler, name)
-        lr_scheduler = build_scheduler(optimizer=optimizer, **schedule_cfg)
-        return {
-            "optimizer": optimizer,
-            "lr_scheduler": {
-                "scheduler": lr_scheduler,
-            },
-        }
+        self.lr_scheduler = build_scheduler(optimizer=optimizer, **schedule_cfg)
+        # lr_scheduler = {'scheduler': self.lr_scheduler,
+        #                 'interval': 'epoch',
+        #                 'frequency': 1}
+        # return [optimizer], [lr_scheduler]
+
+        return optimizer
 
     def optimizer_step(
         self,
@@ -276,13 +287,6 @@ class TrainingTask(LightningModule):
         # update params
         optimizer.step(closure=optimizer_closure)
         optimizer.zero_grad()
-
-    def get_progress_bar_dict(self):
-        # don't show the version number
-        items = super().get_progress_bar_dict()
-        items.pop("v_num", None)
-        items.pop("loss", None)
-        return items
 
     def scalar_summary(self, tag, phase, value, step):
         """
