@@ -1,0 +1,20 @@
+version: "2.0"
+services:
+  pytorch:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      shm_size: '32gb'
+    command: python tools/train.py config/tinydet/nanodet-plus-EffNetLite0_320.yml
+    shm_size: '32gb'
+    restart: no
+    volumes:
+        - ./:/usr/src/app/
+        - ./coco:/usr/src/app/coco
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids: ['0']
+            capabilities: [gpu]

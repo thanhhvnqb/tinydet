@@ -5,7 +5,7 @@
 #           AP_small = 0.083
 #               AP_m = 0.278
 #               AP_l = 0.451
-save_dir: work_dirs/nanodet-plus-EffNetLite0_320
+save_dir: ../work_dirs/230317-nanodet-plus-EffNetLite0_320
 model:
   weight_averager:
     name: ExpMovingAverager
@@ -16,12 +16,12 @@ model:
     backbone:
       name: EffNetLite
       model_name: effnet_lite0
-      out_stages: [2,4,6]
-      activation: ReLU6
-      pretrain: False
+      out_stages: [2, 4, 6] # [1,3,5]
+      activation: LeakyReLU
+      pretrain: True
     fpn:
       name: GhostPAN
-      in_channels: [240, 672, 320] # [40, 112, 320]
+      in_channels: [40, 112, 320]
       out_channels: 96
       kernel_size: 5
       num_extra_level: 1
@@ -68,6 +68,7 @@ data:
     ann_path: coco/annotations/instances_train2017.json
     input_size: [320,320] #[w,h]
     keep_ratio: False
+    load_mosaic: False
     pipeline:
       perspective: 0.0
       scale: [0.6, 1.4]
@@ -91,8 +92,8 @@ data:
 device:
   tpu_ids: None
   gpu_ids: [0] # Set like [0, 1, 2, 3] if you have multi-GPUs
-  workers_per_gpu: 4 # per_device
-  batchsize_per_gpu: 96 # per_device
+  workers_per_gpu: 8 # per_device
+  batchsize_per_gpu: 64 # per_device
 schedule:
 #  resume:
 #  load_model:

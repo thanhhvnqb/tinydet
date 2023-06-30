@@ -33,7 +33,7 @@ from nanodet.util import (
     load_model_weight,
     mkdir,
 )
-
+torch.set_float32_matmul_precision("medium")
 
 def parse_args():
     parser = argparse.ArgumentParser()

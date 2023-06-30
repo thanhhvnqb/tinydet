@@ -123,7 +123,7 @@ class MBConvBlock(nn.Module):
         )
         self._relu = act_layers(activation)
 
-    def forward(self, x, drop_connect_rate=None, first_block=False):
+    def forward(self, x, drop_connect_rate=None):
         """
         :param x: input tensor
         :param drop_connect_rate: drop connect rate (float, between 0 and 1)
@@ -134,8 +134,6 @@ class MBConvBlock(nn.Module):
         identity = x
         if self.expand_ratio != 1:
             x = self._relu(self._bn0(self._expand_conv(x)))
-        if first_block:
-            expand_x = x
         x = self._relu(self._bn1(self._depthwise_conv(x)))
 
         # Squeeze and Excitation
@@ -155,9 +153,34 @@ class MBConvBlock(nn.Module):
             if drop_connect_rate:
                 x = drop_connect(x, drop_connect_rate, training=self.training)
             x += identity  # skip connection
-        if first_block:
-            return x, expand_x
         return x
+    
+    
+class SPPF(nn.Module):
+    # Spatial Pyramid Pooling - Fast (SPPF) layer for YOLOv5 by Glenn Jocher
+    def __init__(self, c1, c2, k=3):  # equivalent to SPP(k=(3, 5, 7))
+        super().__init__()
+        momentum = 0.01
+        epsilon = 1e-3
+        activation="ReLU6"
+        c_ = c1 // 2  # hidden channels
+        self.cv1 = nn.Sequential(
+            nn.Conv2d(c1, c_, kernel_size=1, stride=1, padding=0, bias=False),
+            nn.BatchNorm2d(num_features=c_, momentum=momentum, eps=epsilon),
+            act_layers(activation),
+        ) 
+        self.cv2 = nn.Sequential(
+            nn.Conv2d(c_ * 4, c2, kernel_size=1, stride=1, padding=0, bias=False),
+            nn.BatchNorm2d(num_features=c2, momentum=momentum, eps=epsilon),
+            act_layers(activation),
+        )
+        self.m = nn.MaxPool2d(kernel_size=k, stride=1, padding=k // 2)
+
+    def forward(self, x):
+        x = self.cv1(x)
+        y1 = self.m(x)
+        y2 = self.m(y1)
+        return self.cv2(torch.cat((x, y1, y2, self.m(y2)), 1))
 
 
 class EffNetLite(nn.Module):
@@ -172,6 +195,7 @@ class EffNetLite(nn.Module):
         # Batch norm parameters
         momentum = 0.01
         epsilon = 1e-3
+        
         width_multiplier, depth_multiplier, _, dropout_rate = efficientnet_lite_params[
             model_name
         ]
@@ -196,6 +220,7 @@ class EffNetLite(nn.Module):
             nn.BatchNorm2d(num_features=out_channels, momentum=momentum, eps=epsilon),
             act_layers(activation),
         )
+        
 
         # Build blocks
         self.blocks = nn.ModuleList([])
@@ -253,27 +278,24 @@ class EffNetLite(nn.Module):
 
             self.blocks.append(stage)
         self._initialize_weights(pretrain)
+        
+        self.sppf = SPPF(output_filters, output_filters)
 
     def forward(self, x):
         x = self.stem(x)
         output = []
         idx = 0
         for j, stage in enumerate(self.blocks):
-            first_block = True
             for block in stage:
                 drop_connect_rate = self.drop_connect_rate
                 if drop_connect_rate:
                     drop_connect_rate *= float(idx) / len(self.blocks)
-                if first_block:
-                    x, expand_x = block(x, drop_connect_rate, True)
-                else:
-                    x = block(x, drop_connect_rate)
-                if j-1 in self.out_stages and first_block:
-                    output.append(expand_x)
-                first_block = False
+                x = block(x, drop_connect_rate)
                 idx += 1
-        if j in self.out_stages:
-            output.append(x)
+            if j in self.out_stages:
+                if j == self.out_stages[-1]:
+                    x = self.sppf(x)
+                output.append(x)
         return output
 
     def _initialize_weights(self, pretrain=True):

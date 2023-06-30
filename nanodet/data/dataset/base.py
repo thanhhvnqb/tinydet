@@ -57,8 +57,11 @@ class BaseDataset(Dataset, metaclass=ABCMeta):
         load_mosaic: bool = False,
         mode: str = "train",
         multi_scale: Optional[Tuple[float, float]] = None,
+        mosaic_border: Optional[Tuple[int, int]] = (0, 0),
     ):
         assert mode in ["train", "val", "test"]
+        if mode == "val" or mode == "test":
+            load_mosaic = False
         self.img_path = img_path
         self.ann_path = ann_path
         self.input_size = input_size
@@ -68,6 +71,7 @@ class BaseDataset(Dataset, metaclass=ABCMeta):
         self.use_seg_mask = use_seg_mask
         self.use_keypoint = use_keypoint
         self.load_mosaic = load_mosaic
+        self.mosaic_border = mosaic_border
         self.multi_scale = multi_scale
         self.mode = mode
 

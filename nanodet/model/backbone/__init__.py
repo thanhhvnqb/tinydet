@@ -16,6 +16,7 @@ import copy
 
 from .custom_csp import CustomCspNet
 from .efficientnet_lite import EfficientNetLite
+from .effnet_lite import EffNetLite
 from .ghostnet import GhostNet
 from .mobilenetv2 import MobileNetV2
 from .repvgg import RepVGG
@@ -37,6 +38,8 @@ def build_backbone(cfg):
         return MobileNetV2(**backbone_cfg)
     elif name == "EfficientNetLite":
         return EfficientNetLite(**backbone_cfg)
+    elif name == "EffNetLite":
+        return EffNetLite(**backbone_cfg)
     elif name == "CustomCspNet":
         return CustomCspNet(**backbone_cfg)
     elif name == "RepVGG":
